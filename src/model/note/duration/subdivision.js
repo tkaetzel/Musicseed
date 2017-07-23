@@ -1,0 +1,11 @@
+export const THIRTY_SECOND = 32;
+export const DOTTED_THIRTY_SECOND = 24;
+export const SIXTEENTH = 16;
+export const DOTTED_SIXTEENTH = 12;
+export const EIGHTH = 8;
+export const DOTTED_EIGHTH = 6;
+export const QUARTER = 4;
+export const DOTTED_QUARTER = 3;
+export const HALF = 2;
+export const DOTTED_HALF = 1.5;
+export const WHOLE = 1;
