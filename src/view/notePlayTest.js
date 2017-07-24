@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-import * as chroma from '../model/note/pitch/chroma.js';
-import * as octave from '../model/note/pitch/octave.js';
-import Pitch from '../model/note/pitch/pitch.js';
-import * as unit from '../model/note/duration/unit.js';
-import * as subdivision from '../model/note/duration/subdivision.js'
-import Duration from '../model/note/duration/duration.js';
-import Note from '../model/note/note.js';
+import Measure from '../model/measure/measure.js';
+import TimeSignature from '../model/measure/timeSignature.js';
+import BuildNote from './components/buildNote.js';
+import BuildMeasure from './components/buildMeasure.js';
 import Synth from './synth.js';
 
 class NotePlayTest extends Component {
@@ -14,56 +11,37 @@ class NotePlayTest extends Component {
 
         this.synth = new Synth();
 
-        let note = new Note(new Pitch(chroma.C, octave.FOUR), new Duration(subdivision.EIGHTH, unit.TRIPLET));
+        let measure = new Measure(new TimeSignature(4, 4));
         
-        this.state = {
-            note: note
-        };
+        this.state = { measure: measure }
     }
 
-    beep() {
-        this.synth.playNote(this.state.note);
+    beep(note) {
+        this.synth.playNote(note);
     }
 
-    changeNote(e, attribute) {
-        let { note } = this.state;
-        note[attribute[0]][attribute[1]] = e.target.value;
-        this.setState({ note: note });
+    playMeasure() {
+        this.synth.playMeasure(this.state.measure);
     }
 
-    generateSelect(options, attribute) {
-        let { note } = this.state;
-        return (
-            <select id={attribute[1]} onChange={e => this.changeNote(e, attribute)} value={note[attribute[0]][attribute[1]]}>
-                { this.generateOptions(options, attribute) }
-            </select>
-        );
+    setMeasure(newMeasure) {
+        this.setState({ measure: newMeasure });
     }
 
-    generateOptions(options, attribute) {
-        let htmlOptions = [];
-
-        for (let option in options) {
-            htmlOptions.push(
-                <option value={options[option]} key={attribute[1] + '-' + options[option]}>
-                    {option}
-                </option>
-            );
-        }
-
-        return htmlOptions;
+    addNoteToMeasure(note, beat, partial) {
+        let { measure } = this.state;
+        measure.addNote(note.copy(), beat, partial);
+        this.setState({ measure: measure });
+        this.beep(note);
     }
 
     render() {
-        let { note } = this.state;
-
+        let { measure } = this.state;
         return (
             <div>
-                { this.generateSelect(chroma, ['pitch', 'chroma']) }
-                { this.generateSelect(octave, ['pitch', 'octave']) }
-                { this.generateSelect(subdivision, ['duration', 'subdivision']) }
-                { this.generateSelect(unit, ['duration', 'unit']) }
-                <button onClick={() => this.beep()}>BEEP</button>
+                <BuildMeasure measure={measure} setMeasure={(measure) => this.setMeasure(measure)} />
+                <BuildNote measure={measure} addNoteToMeasure={(note, beat, partial) => this.addNoteToMeasure(note, beat, partial)} />
+                <button onClick={() => this.playMeasure()}>Play Measure</button>
             </div>
         );
     }
