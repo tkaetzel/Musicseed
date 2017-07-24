@@ -15,10 +15,6 @@ class Duration {
             return this.subdivision + this.unit 
         }
     }
-
-    copy() {
-        return new Duration(this.subdivision, this.unit);
-    }
 }
 
 export default Duration;

@@ -4,10 +4,6 @@ class Pitch {
         this.octave = octave;
     }
 
-    copy() {
-        return new Pitch(this.chroma, this.octave);
-    }
-
     toString = () => { return this.chroma + this.octave }
 }
 

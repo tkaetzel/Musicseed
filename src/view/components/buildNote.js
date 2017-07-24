@@ -9,11 +9,16 @@ import Note from '../../model/note/note.js';
 import NoteAttributeSelect from './noteAttributeSelect.js';
 import Select from './select.js';
 
+const DEFAULT_CHROMA = chroma.C;
+const DEFAULT_OCTAVE = octave.FOUR;
+const DEFAULT_SUBDIVISION = subdivision.QUARTER;
+const DEFAULT_UNIT = unit.DUPLE;
+
 class BuildNote extends Component {
     constructor() {
         super();
 
-        let note = new Note(new Pitch(chroma.C, octave.FOUR), new Duration(subdivision.EIGHTH, unit.TRIPLET));
+        let note = new Note(new Pitch(DEFAULT_CHROMA, DEFAULT_OCTAVE), new Duration(DEFAULT_SUBDIVISION, DEFAULT_UNIT));
         
         this.state = { 
             note: note,
@@ -23,26 +28,28 @@ class BuildNote extends Component {
     }
 
     changeNote(e) {
-        let note = this.state.note;
+        let oldNote = this.state.note;
+        let newNote = new Note(new Pitch(oldNote.pitch.chroma, oldNote.pitch.octave), new Duration(oldNote.duration.subdivision, oldNote.duration.unit));
+
         switch(e.target.id) {
             case 'chroma':
-                note.pitch.chroma = e.target.value;
+                newNote.pitch.chroma = e.target.value;
                 break;
             case 'octave':
-                note.pitch.octave = e.target.value;
+                newNote.pitch.octave = e.target.value;
                 break;
             case 'subdivision':
-                note.duration.subdivision = e.target.value;  
+                newNote.duration.subdivision = e.target.value;  
                 break;
             case 'unit':
-                note.duration.unit = e.target.value;
+                newNote.duration.unit = e.target.value;
                 break;
             default:
                 console.log('attempted to change note with unknown attribute: ' + e.target.id);
                 break;
         }
-        this.setState({ note: note });
-        console.log(note);
+
+        this.setState({ note: newNote });
     }
 
     changeBeat(e) {

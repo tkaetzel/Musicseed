@@ -11,7 +11,7 @@ class NotePlayTest extends Component {
 
         this.synth = new Synth();
 
-        let measure = new Measure(new TimeSignature(4, 4));
+        let measure = new Measure(new TimeSignature(4, 4), [], []);
         
         this.state = { measure: measure }
     }
@@ -29,9 +29,8 @@ class NotePlayTest extends Component {
     }
 
     addNoteToMeasure(note, beat, partial) {
-        let { measure } = this.state;
-        measure.addNote(note.copy(), beat, partial);
-        this.setState({ measure: measure });
+        let newMeasure = this.state.measure.withAddedNote(note, beat, partial)
+        this.setMeasure(newMeasure);
         this.beep(note);
     }
 
