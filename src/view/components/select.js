@@ -1,10 +1,5 @@
 import React from 'react';
 
-let Select = props =>
-    <select id={props.id} onChange={e => props.change(e)} value={props.value}>
-      { generateOptions(props) }
-    </select>;
-
 let generateOptions = props => {
     let htmlOptions = [];
     let { id, options, useIndexAsText } = props;
@@ -19,5 +14,10 @@ let generateOptions = props => {
 
     return htmlOptions;
 }
+
+let Select = props =>
+    <select id={props.id} onChange={e => props.change(e)} value={props.value}>
+      { generateOptions(props) }
+    </select>;
 
 export default Select;

@@ -2,27 +2,24 @@ import Tone from 'tone';
 
 class Synth {
     constructor() {
-        this.synth = new Tone.Synth().toMaster();
+        this.synth = new Tone.PolySynth(4, Tone.MonoSynth).toMaster();
     }
 
     playNote(note) {
-        console.log(note);
         this.synth.triggerAttackRelease(note.pitch.toString(), note.duration.toString());
     }
 
-    playNoteInMeasure(note, time) {
-        console.log(note);
-        this.synth.triggerAttackRelease(note, time);
+    playScheduledNote(note, time) {
+        this.synth.triggerAttackRelease(note.pitch.toString(), note.duration.toString(), time);
     }
 
     playMeasure(measure) {
-        let _this = this;
-        console.log(measure.toSequenceArray());
-        let sequence = new Tone.Sequence(function(time, note) { 
-            _this.playNoteInMeasure(note, time)
-        }, measure.toSequenceArray());
-        sequence.start(0);
-        Tone.Transport.bpm.value = 300;
+        measure.notes.forEach(note => {
+            console.log(note);
+            Tone.Transport.schedule(time => {
+                this.playScheduledNote(note.note, time)
+            }, note.cursor.duration.toTime());
+        });
         Tone.Transport.start();
     }
 }

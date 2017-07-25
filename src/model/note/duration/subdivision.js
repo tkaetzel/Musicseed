@@ -9,3 +9,4 @@ export const DOTTED_QUARTER = 3;
 export const HALF = 2;
 export const DOTTED_HALF = 1.5;
 export const WHOLE = 1;
+export const NONE = 0;

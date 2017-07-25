@@ -1,4 +1,5 @@
 import * as subdivision from './subdivision.js'
+import Tone from 'tone'
 
 class Duration {
     constructor(subdivision, unit) {
@@ -14,6 +15,10 @@ class Duration {
         else {
             return this.subdivision + this.unit 
         }
+    }
+
+    toTime = () => {
+        return this.subdivision === subdivision.NONE ? 0 : Tone.TimeBase(this.toString()).valueOf();
     }
 }
 
