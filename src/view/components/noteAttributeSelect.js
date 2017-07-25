@@ -1,18 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Select from './select.js'
 
-class NoteAttributeSelect extends Component {
-    render() {
-        let { note, attributeCategory, attribute, options, changeNote } = this.props;
-        return (
-            <Select 
-                id={attribute}
-                change={changeNote}
-                options={options}
-                value={note[attributeCategory][attribute]}
-                useIndexAsText={true}
-            />
-        );
-    }
-}
+let NoteAttributeSelect = props =>
+    <Select 
+        id={props.attribute}
+        change={props.changeNote}
+        options={props.options}
+        value={props.note[props.attributeCategory][props.attribute]}
+        useIndexAsText={true}
+    />;
+
 export default NoteAttributeSelect;

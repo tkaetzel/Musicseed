@@ -1,37 +1,23 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class Select extends Component {
-    generateSelect() {
-        let { id, change, value } = this.props;
-        return (
-            <select id={id} onChange={e => change(e)} value={value}>
-                { this.generateOptions() }
-            </select>
+let Select = props =>
+    <select id={props.id} onChange={e => props.change(e)} value={props.value}>
+      { generateOptions(props) }
+    </select>;
+
+let generateOptions = props => {
+    let htmlOptions = [];
+    let { id, options, useIndexAsText } = props;
+
+    for (let option in options) {
+        htmlOptions.push(
+            <option value={options[option]} key={id + '-' + options[option]}>
+                {useIndexAsText ? option : options[option]}
+            </option>
         );
     }
 
-    generateOptions() {
-        let htmlOptions = [];
-        let { id, options, useIndexAsText } = this.props;
-
-        for (let option in options) {
-            htmlOptions.push(
-                <option value={options[option]} key={id + '-' + options[option]}>
-                    {useIndexAsText ? option : options[option]}
-                </option>
-            );
-        }
-
-        return htmlOptions;
-    }
-
-    render() {
-        return (
-            <span>
-                { this.generateSelect() }
-            </span>
-        );
-    }
+    return htmlOptions;
 }
 
 export default Select;

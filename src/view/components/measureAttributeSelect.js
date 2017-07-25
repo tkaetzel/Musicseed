@@ -1,17 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Select from './select.js'
 
-class MeasureAttributeSelect extends Component {
-    render() {
-        let { measure, attribute, options, changeMeasure } = this.props;
-        return (
-            <Select 
-                id={attribute}
-                change={changeMeasure}
-                options={options}
-                value={measure.timeSignature[attribute]}
-            />
-        );
-    }
-}
+let MeasureAttributeSelect = props => 
+    <Select 
+        id={props.attribute}
+        change={props.changeMeasure}
+        options={props.options}
+        value={props.measure.timeSignature[props.attribute]}
+    />;
+
 export default MeasureAttributeSelect;

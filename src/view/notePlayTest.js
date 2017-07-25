@@ -38,7 +38,7 @@ class NotePlayTest extends Component {
         let { measure } = this.state;
         return (
             <div>
-                <BuildMeasure measure={measure} setMeasure={(measure) => this.setMeasure(measure)} />
+                <BuildMeasure measure={measure} setMeasure={(newMeasure) => this.setMeasure(newMeasure)} />
                 <BuildNote measure={measure} addNoteToMeasure={(note, beat, partial) => this.addNoteToMeasure(note, beat, partial)} />
                 <button onClick={() => this.playMeasure()}>Play Measure</button>
             </div>
