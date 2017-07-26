@@ -1,7 +1,12 @@
-export const A = 'A';
-export const B = 'B';
 export const C = 'C';
-export const D = 'D';
+export const C_S = 'C#'
+export const D = 'D'
+export const D_S = 'D#';
 export const E = 'E';
 export const F = 'F';
+export const F_S = 'F#';
 export const G = 'G';
+export const G_S = 'G#';
+export const A = 'A';
+export const A_S = 'A#'
+export const B = 'B';

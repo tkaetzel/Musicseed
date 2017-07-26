@@ -2,12 +2,14 @@ import React from 'react';
 
 let generateOptions = props => {
     let htmlOptions = [];
-    let { id, options, useIndexAsText } = props;
+    let { id, options, useIndexAsText, displayValuePlusOne } = props;
 
     for (let option in options) {
+        let text = useIndexAsText ? option : options[option];
+        if (displayValuePlusOne) { text += 1 } 
         htmlOptions.push(
             <option value={options[option]} key={id + '-' + options[option]}>
-                {useIndexAsText ? option : options[option]}
+                {text}
             </option>
         );
     }

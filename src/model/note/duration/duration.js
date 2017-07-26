@@ -5,11 +5,12 @@ class Duration {
     constructor(subdivision, unit) {
         this.subdivision = subdivision;
         this.unit = unit;
+
     }
 
     toString = () => {
-        // weird bug for dotted-half notes (omit unit)
-        if (this.subdivision === subdivision.DOTTED_HALF.toString()) {
+        // weird bug for notes with decimals (omit unit)
+        if (!Number.isInteger(this.subdivision)) {
             return this.subdivision;
         }
         else {
