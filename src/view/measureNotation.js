@@ -23,7 +23,6 @@ class MeasureNotation extends Component {
 
     buildContext() {
         let div = document.getElementById(this.id)
-        console.log(div);
         // if we haven't rendered the div yet, don't try to render measure
         if (!div) return null;
         let renderer = new Vex.Flow.Renderer(div, Vex.Flow.Renderer.Backends.SVG);
@@ -63,7 +62,6 @@ class MeasureNotation extends Component {
         let notes = this.buildNotes(measure);
         let voices = this.buildVoices(measure, notes);
         new Vex.Flow.Formatter().joinVoices(voices).format(voices, STAVE_WIDTH);
-        console.log(voices);
         voices.forEach(voice => { voice.draw(context, stave) });
     }
 

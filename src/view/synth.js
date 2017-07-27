@@ -13,16 +13,16 @@ class Synth {
     }
 
     playNote(note) {
-        console.log(note);
-        this.synth.triggerAttackRelease(note.pitch.toString(), note.duration.toString());
+        this.synth.triggerAttackRelease(note.pitch.toString(), note.duration.toTime());
     }
 
     playScheduledNote(note, time) {
-        console.log(note.pitch.toString());
-        this.synth.triggerAttackRelease(note.pitch.toString(), note.duration.toString(), time);
+        console.log(note, time, note.duration.toTime());
+        this.synth.triggerAttackRelease(note.pitch.toString(), note.duration.toTime(), time);
     }
 
     playMeasure(measure) {
+        console.log(measure);
         measure.notes.forEach(note => {
             Tone.Transport.schedule(time => {
                 this.playScheduledNote(note.note, time)
@@ -32,6 +32,11 @@ class Synth {
         Tone.Transport.loopStart = 0;
         Tone.Transport.loopEnd = "4m";
         Tone.Transport.start();
+    }
+
+    stop() {
+        Tone.Transport.stop();
+        Tone.Transport.cancel();
     }
 }
 

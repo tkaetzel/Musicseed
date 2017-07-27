@@ -20,7 +20,6 @@ class NotePlayTest extends Component {
     }
 
     playMeasure() {
-        console.log(this.state.measure);
         this.synth.playMeasure(this.state.measure);
     }
 
@@ -37,6 +36,10 @@ class NotePlayTest extends Component {
         this.beep(note);
     }
 
+    stopSynth() {
+        this.synth.stop();
+    }
+
     render() {
         let { measure } = this.state;
         return (
@@ -45,6 +48,7 @@ class NotePlayTest extends Component {
                 <BuildNote measure={measure} addNoteToMeasure={(note, cursor) => this.addNoteToMeasure(note, cursor)} />
                 <button onClick={() => this.playMeasure()}>Play Measure</button>
                 <button onClick={() => this.playTest()}>Play Test</button>
+                <button onClick={() => this.stopSynth()}>Stop</button>
                 <MeasureNotation measure={measure} id={0} />
             </div>
         );

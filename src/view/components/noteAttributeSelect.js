@@ -6,7 +6,7 @@ let NoteAttributeSelect = props =>
         id={props.attribute}
         change={props.changeNote}
         options={props.options}
-        value={props.note[props.attributeCategory][props.attribute]}
+        value={props.note[props.attributeCategory][props.attribute].toString()}
         useIndexAsText={true}
     />;
 

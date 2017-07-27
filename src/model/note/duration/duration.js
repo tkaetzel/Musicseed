@@ -1,25 +1,20 @@
-import * as subdivision from './subdivision.js'
+import * as subdivisionValues from './subdivisionValues.js'
 import Tone from 'tone'
 
 class Duration {
     constructor(subdivision, unit) {
         this.subdivision = subdivision;
         this.unit = unit;
-
     }
 
-    toString = () => {
-        // weird bug for notes with decimals (omit unit)
-        if (!Number.isInteger(this.subdivision)) {
-            return this.subdivision;
-        }
-        else {
-            return this.subdivision + this.unit 
-        }
+    toString = (subdivisionPart) => {
+        return subdivisionPart + this.unit 
     }
 
     toTime = () => {
-        return this.subdivision === subdivision.NONE ? 0 : Tone.TimeBase(this.toString()).valueOf();
+        return this.subdivision.reduce((sum, value) => {
+            return sum + (value === subdivisionValues.NONE_VAL ? 0 : Tone.TimeBase(this.toString(value)).valueOf());
+        }, 0);
     }
 }
 

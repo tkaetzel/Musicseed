@@ -15,7 +15,7 @@ let CursorAttributeSelect = props =>
         id={props.attribute}
         change={props.changeCursor}
         options={props.options}
-        value={value(props)}
+        value={value(props).toString()}
         useIndexAsText={props.useIndexAsText}
         displayValuePlusOne={props.displayValuePlusOne}
     />;

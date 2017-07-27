@@ -41,7 +41,7 @@ class BuildNote extends Component {
                 newNote.pitch.octave = parseInt(e.target.value, 10);
                 break;
             case 'subdivision':
-                newNote.duration.subdivision = parseInt(e.target.value, 10);  
+                newNote.duration.subdivision = e.target.value.split(',').map(val => { return parseInt(val, 10)});
                 break;
             case 'unit':
                 newNote.duration.unit = e.target.value;
@@ -66,7 +66,7 @@ class BuildNote extends Component {
                 newCursor.beatNum = parseInt(e.target.value, 10);
                 break;
             case 'subdivision':
-                newCursor.duration.subdivision = parseInt(e.target.value, 10);
+                newCursor.duration.subdivision = e.target.value.split(',').map(val => { return parseInt(val, 10)});
                 break;
             case 'unit':
                 newCursor.duration.unit = e.target.value;
